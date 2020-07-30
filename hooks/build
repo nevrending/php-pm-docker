@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+
+echo "------ HOOK START - BUILD -------"
+printenv
+
+docker build -t $IMAGE_NAME -f $DOCKERFILE_PATH --build-arg version=$VERSION --build-arg http_version=$HTTP_VERSION .
+
+echo "------ HOOK END - BUILD -------"
