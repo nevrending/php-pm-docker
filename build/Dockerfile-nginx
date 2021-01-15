@@ -1,8 +1,10 @@
-FROM composer:1.10 as composer
+FROM composer:2 as composer
 
 ARG version=dev-master
 ARG http_version=dev-master
-RUN mkdir /ppm && cd /ppm && composer require php-pm/php-pm:${version} && composer require php-pm/httpkernel-adapter:${http_version}
+WORKDIR /ppm
+ADD etc/composer.json composer.json
+RUN composer require php-pm/php-pm:${version} && composer require php-pm/httpkernel-adapter:${http_version}
 
 FROM alpine:3.12
 
