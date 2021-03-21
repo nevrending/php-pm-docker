@@ -2,10 +2,10 @@
 
 ## Noteable Changes and Differences
 
-[x] Always built with the latest [PHP-PM](https://github.com/php-pm/php-pm) and [HttpKernel](https://github.com/php-pm/php-pm-httpkernel).
-[x] Base image is Alpine 3.13.
-[x] Optimized NGiNX configurations.
-[ ] Optimized PHP configurations.
+- [x] Built with the latest [PHP-PM](https://github.com/php-pm/php-pm) and [HttpKernel](https://github.com/php-pm/php-pm-httpkernel).
+- [x] Base image is Alpine 3.13.
+- [x] Optimized NGiNX configurations.
+- [ ] Optimized PHP configurations.
 
 # PHP-PM Docker
 
@@ -19,7 +19,7 @@ You can use [PHP-PM](https://github.com/php-pm/php-pm) using Docker. We provide 
 
 ### Examples
 
-```bash
+```sh
 # change into your project folder first
 cd your/symfony-project/
 
@@ -66,7 +66,7 @@ services:
 You can configure PPM via the `ppm.json` file in the root directory, which is within the container mounted to
 `/var/www/`. Alternatively, you can overwrite each option using the regular CLI arguments.
 
-```bash
+```sh
 # change the ppm.json within current directory
 docker run -v `pwd`:/var/www nevrending/phppm:ppm-latest config --help
 
@@ -90,6 +90,6 @@ RUN apk --no-cache add ca-certificates wget
 # whatever you need
 ```
 
-```bash
+```sh
 docker build -f Dockerfile -t my-repo/my-image .
 ```
