@@ -1,50 +1,59 @@
+# NevREnding's Fork of PHP-PM Docker
+
+## Noteable Changes and Differences
+
+[x] Always built with the latest [PHP-PM](https://github.com/php-pm/php-pm) and [HttpKernel](https://github.com/php-pm/php-pm-httpkernel).
+[x] Base image is Alpine 3.13.
+[x] Optimized NGiNX configurations.
+[ ] Optimized PHP configurations.
+
 # PHP-PM Docker
 
 You can use [PHP-PM](https://github.com/php-pm/php-pm) using Docker. We provide you several images always with PHP-PM and PHP7 pre-installed.
 
 ## Images
 
-- [`phppm/nginx`](https://hub.docker.com/r/phppm/nginx/): Contains php-pm and uses NGiNX as static file serving 
-- [`phppm/standalone`](https://hub.docker.com/r/phppm/standalone/): Contains php-pm and uses php-pm's ability to serve static files (slower)
-- [`phppm/ppm`](https://hub.docker.com/r/phppm/ppm/): Just the php-pm binary as entry point
+- [`nevrending/phppm:nginx`](https://hub.docker.com/layers/nevrending/phppm/nginx-latest): Contains php-pm and uses NGiNX as static file serving (recommended)
+- [`nevrending/phppm:standalone`](https://hub.docker.com/r/nevrending/phppm:standalone-latest): Contains php-pm and uses php-pm's ability to serve static files (slower)
+- [`nevrending/phppm:ppm`](https://hub.docker.com/r/nevrending/phppm:ppm-latest): Just the php-pm binary as entry point
 
 ### Examples
 
-```
+```bash
 # change into your project folder first
 cd your/symfony-project/
 
 # see what php-pm binary can do for you.
-$ docker run -v `pwd`:/var/www/ phppm/ppm --help
-$ docker run -v `pwd`:/var/www/ phppm/ppm config --help
+$ docker run -v `pwd`:/var/www/ nevrending/phppm:ppm-latest --help
+$ docker run -v `pwd`:/var/www/ nevrending/phppm:ppm-latest config --help
 
 # with nginx as static file server
-$ docker run -v `pwd`:/var/www -p 8080:80 phppm/nginx
+$ docker run -v `pwd`:/var/www -p 8080:80 nevrending/phppm:nginx-latest
 
 # with php-pm as static file server (dev only)
-$ docker run -v `pwd`:/var/www -p 8080:80 phppm/standalone
+$ docker run -v `pwd`:/var/www -p 8080:80 nevrending/phppm:standalone-latest
 
-# use `PPM_CONFIG` environment variable to choose a different ppm config file.
-$ docker run  -v `pwd`:/var/www -p 80:80 phppm/nginx -c ppm-prod.json
+# use `PPM_CONFIG` environment variable to choose a different PPM config file.
+$ docker run  -v `pwd`:/var/www -p 80:80 nevrending/phppm:nginx-latest -c ppm-prod.json
 
-# enable file tracking, to automatically restart ppm when php source changed
-$ docker run -v `pwd`:/var/www -p 80:80 phppm/nginx --debug=1 --app-env=dev
+# enable file tracking, to automatically restart PPM when PHP source changed
+$ docker run -v `pwd`:/var/www -p 80:80 nevrending/phppm:nginx-latest --debug=1 --app-env=dev
 
 # change static file directory. PPM_STATIC relative to mounted /var/www/.
-$ docker run -v `pwd`:/var/www -p 80:80 phppm/nginx --static-directory=web/
+$ docker run -v `pwd`:/var/www -p 80:80 nevrending/phppm:nginx-latest --static-directory=web/
 
 # Use 16 threads/workers for PHP-PM.
-$ docker run -v `pwd`:/var/www -p 80:80 phppm/nginx --workers=16
+$ docker run -v `pwd`:/var/www -p 80:80 nevrending/phppm:nginx-latest --workers=16
 ```
 
-Docker compose
+###  Docker Compose
 
-```
+```yaml
 version: "3.1"
 
 services:
   ppm:
-    image: phppm/nginx
+    image: nevrending/phppm:nginx-latest
     command: --debug=1 --app-env=dev --static-directory=web/
     volumes:
       - ./symfony-app/:/var/www
@@ -52,37 +61,35 @@ services:
       - "80:80"
 ```
 
-### Configuration
+### Configurations
 
-You should configure PPM via the ppm.json in the root directory, which is within the container mounted to 
-`/var/www/`. Alternatively, you can overwrite each option using the regular cli arguments.
+You can configure PPM via the `ppm.json` file in the root directory, which is within the container mounted to
+`/var/www/`. Alternatively, you can overwrite each option using the regular CLI arguments.
 
-```
+```bash
 # change the ppm.json within current directory
-docker run -v `pwd`:/var/www phppm/ppm config --help
+docker run -v `pwd`:/var/www nevrending/phppm:ppm-latest config --help
 
 # not persisting config changes
-docker run -v `pwd`:/var/www -p 80:80 phppm/nginx --help
-docker run -v `pwd`:/var/www -p 80:80 phppm/nginx --workers=1 --debug 1
-docker run -v `pwd`:/var/www -p 80:80 phppm/nginx --c prod-ppm.json
+docker run -v `pwd`:/var/www -p 80:80 nevrending/phppm:nginx-latest --help
+docker run -v `pwd`:/var/www -p 80:80 nevrending/phppm:nginx-latest --workers=1 --debug 1
+docker run -v `pwd`:/var/www -p 80:80 nevrending/phppm:nginx-latest --c prod-ppm.json
 ```
 
-## Build image with own tools/dependencies
+## Build Image With Your Own Tools/Dependencies
 
-If your applications requires additional php modules or other tools and libraries in your container, you
+If your application requires additional PHP modules or other tools and libraries in your container, you
 can use our image as base. We use lightweight Alpine Linux.
 
-```
-# Dockerfile
-FROM phppm/nginx:1.0
+```Dockerfile
+FROM nevrending/phppm:nginx-latest
 
 RUN apk --no-cache add git
 RUN apk --no-cache add ca-certificates wget
 
-# whatever you need 
+# whatever you need
 ```
 
-```
-docker build vendor/my-image -f Dockerfile .
-# now use vendor/my-image instead of `phppm/nginx`
+```bash
+docker build -f Dockerfile -t my-repo/my-image .
 ```
