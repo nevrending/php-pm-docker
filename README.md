@@ -105,3 +105,7 @@ docker build -f Dockerfile -t my-repo/my-image .
 $ make VERSION=dev-master TAG=latest nginx
 $ make TAG=latest push-all
 ```
+
+## License
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)](https://github.com/nevrending/php-pm-docker/blob/master/LICENSE)
