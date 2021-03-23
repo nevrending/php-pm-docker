@@ -1,3 +1,8 @@
+![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/nevrending/phppm?style=flat-square)
+![Docker Version](https://img.shields.io/docker/v/nevrending/phppm?style=flat-square&sort=semver)
+![Docker Pulls](https://img.shields.io/docker/pulls/nevrending/phppm?style=flat-square)
+![Docker Image Size (latest by date)](https://img.shields.io/docker/image-size/nevrending/phppm?style=flat-square&sort=date)
+
 # NevREnding's Fork of PHP-PM Docker
 
 ## Noteable Changes and Differences
@@ -92,4 +97,11 @@ RUN apk --no-cache add ca-certificates wget
 
 ```sh
 docker build -f Dockerfile -t my-repo/my-image .
+```
+
+## Bulding With Make
+
+```sh
+$ make VERSION=dev-master TAG=latest nginx
+$ make TAG=latest push-all
 ```
