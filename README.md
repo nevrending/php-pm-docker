@@ -1,4 +1,4 @@
-![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/nevrending/phppm?style=flat-square)
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/nevrending/php-pm-docker/Publish%20Docker%20image?style=flat-square)
 ![Docker Version](https://img.shields.io/docker/v/nevrending/phppm?style=flat-square&sort=semver)
 ![Docker Pulls](https://img.shields.io/docker/pulls/nevrending/phppm?style=flat-square)
 ![Docker Image Size (latest by date)](https://img.shields.io/docker/image-size/nevrending/phppm?style=flat-square&sort=date)
