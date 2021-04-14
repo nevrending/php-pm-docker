@@ -2,7 +2,7 @@ VERSION?=dev-master
 HTTP_VERSION?=dev-master
 TAG?=latest
 
-.PHONY: default standalone ppm nginx push-all
+.PHONY: default standalone ppm nginx laravel push-all
 
 default: standalone ppm nginx laravel
 
