@@ -4,7 +4,7 @@ TAG?=latest
 
 .PHONY: default standalone ppm nginx push-all
 
-default: standalone ppm nginx
+default: standalone ppm nginx laravel
 
 standalone:
 	docker build -t nevrending/phppm:standalone-${TAG} -f build/Dockerfile-standalone build/ --build-arg version=${VERSION} --build-arg http_version=${HTTP_VERSION}
@@ -18,7 +18,12 @@ nginx:
 	docker build -t nevrending/phppm:nginx-${TAG} -f build/Dockerfile-nginx build/ --build-arg version=${VERSION} --build-arg http_version=${HTTP_VERSION}
 	docker tag nevrending/phppm:nginx-${TAG} nevrending/phppm:nginx-latest
 
+laravel:
+	docker build -t nevrending/phppm:laravel-${TAG} -f build/laravel.Dockerfile build/ --build-arg version=${VERSION} --build-arg http_version=${HTTP_VERSION}
+	docker tag nevrending/phppm:laravel-${TAG} nevrending/phppm:laravel-latest
+
 push-all:
 	docker push nevrending/phppm:standalone-${TAG}
 	docker push nevrending/phppm:ppm-${TAG}
 	docker push nevrending/phppm:nginx-${TAG}
+	docker push nevrending/phppm:laravel-${TAG}

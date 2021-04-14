@@ -9,6 +9,7 @@
 
 - [x] Built with the latest [PHP-PM](https://github.com/php-pm/php-pm) and [HttpKernel](https://github.com/php-pm/php-pm-httpkernel).
 - [x] Base image is Alpine 3.13.
+- [x] New `Laravel` tag/image flavour.
 - [x] Optimized NGiNX configurations.
 - [ ] Optimized PHP configurations.
 
@@ -18,6 +19,7 @@ You can use [PHP-PM](https://github.com/php-pm/php-pm) using Docker. We provide 
 
 ## Images
 
+- [`nevrending/phppm:laravel`](https://hub.docker.com/layers/nevrending/phppm/laravel-latest): Contains php-pm, composer, and uses NGiNX as static file serving. Only PHP extensions that Laravel requires are installed (recommended)
 - [`nevrending/phppm:nginx`](https://hub.docker.com/layers/nevrending/phppm/nginx-latest): Contains php-pm and uses NGiNX as static file serving (recommended)
 - [`nevrending/phppm:standalone`](https://hub.docker.com/r/nevrending/phppm:standalone-latest): Contains php-pm and uses php-pm's ability to serve static files (slower)
 - [`nevrending/phppm:ppm`](https://hub.docker.com/r/nevrending/phppm:ppm-latest): Just the php-pm binary as entry point
