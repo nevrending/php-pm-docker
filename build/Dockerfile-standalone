@@ -6,7 +6,7 @@ WORKDIR /ppm
 COPY etc/composer.json composer.json
 RUN composer require php-pm/php-pm:${version} php-pm/httpkernel-adapter:${http_version}
 
-FROM alpine:3.13
+FROM alpine:3.14
 
 ENV LC_ALL en_US.UTF-8
 ENV LANG en_US.UTF-8

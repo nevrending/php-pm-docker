@@ -104,9 +104,13 @@ docker build -f Dockerfile -t my-repo/my-image .
 ## Bulding With Make
 
 ```sh
-$ make VERSION=dev-master TAG=latest nginx
+$ make VERSION=dev-master HTTP_VERSION=dev-master TAG=latest nginx
 $ make TAG=latest push-all
 ```
+
+Recommendations:
+- `VERSION=2.2.2`
+- `HTTP_VERSION=2.0.6`
 
 ## License
 
